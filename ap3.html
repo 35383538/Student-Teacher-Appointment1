@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="ap3style.css">
+    <title>Student-Teacher Booking Appointment</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Student-Teacher Booking Appointment System</h1>
+        </div>
+
+        <div class="navbar">
+            <a href="#loginform" id="loginLink">Login</a>
+            <a href="#registrationform" id="registerLink">Register</a>
+            <a href="#searchTeacherForm" id="searchTeacherLink">Search Teacher</a>
+            <a href="#scheduleappointform" id="scheduleAppointmentLink">Schedule Appointment</a>
+            <a href="#viewMessages" id="viewMessagesLink">View Messages</a>
+            <a href="#viewAllAppointments" id="viewAllAppointmentsLink">View All Appointments</a>
+            <button>Logout</button>
+        </div>
+
+        <div class="content">
+            <!-- Login Form -->
+            <div id="loginForm" class="form-group">
+                <h2>Login</h2>
+                <label for="loginEmail" class="label">Email:</label>
+                <input type="email" id="loginEmail" class="input">
+                <label for="loginPassword" class="label">Password:</label>
+                <input type="password" id="loginPassword" class="input">
+                <button id="loginButton" class="button">Login</button>
+            </div>
+
+            <!-- Registration Form -->
+            <div id="registerForm" class="form-group">
+                <h2>Register</h2>
+                <label for="registerName" class="label">Name:</label>
+                <input type="text" id="registerName" class="input">
+                <label for="registerEmail" class="label">Email:</label>
+                <input type="email" id="registerEmail" class="input">
+                <label for="registerPassword" class="label">Password:</label>
+                <input type="password" id="registerPassword" class="input">
+                <button id="registerButton" class="button">Register</button>
+            </div>
+
+            <!-- Search Teacher Form -->
+            <div id="searchTeacherForm" class="form-group">
+                <h2>Search Teacher</h2>
+                <label for="teacherName" class="label">Teacher Name:</label>
+                <input type="text" id="teacherName" class="input">
+                <button id="searchTeacherButton" class="button">Search</button>
+            </div>
+
+            <!-- Schedule Appointment Form -->
+            <div id="scheduleAppointmentForm" class="form-group">
+                <h2>Schedule Appointment</h2>
+                <label for="appointmentTeacher" class="label">Select Teacher:</label>
+                <select id="appointmentTeacher" class="input">
+                    <!-- Populate with teachers from the database -->
+                </select>
+                <label for="appointmentPurpose" class="label">Appointment Purpose:</label>
+                <textarea id="appointmentPurpose" class="input"></textarea>
+                <label for="appointmentTiming" class="label">Appointment Timing:</label>
+                <input type="datetime-local" id="appointmentTiming" class="input">
+                <button id="scheduleAppointmentButton" class="button">Schedule</button>
+            </div>
+
+            <!-- View Messages -->
+            <div id="viewMessages" class="form-group">
+                <h2>View Messages</h2>
+                <!-- Display messages from the database -->
+            </div>
+
+            <!-- View All Appointments -->
+            <div id="viewAllAppointments" class="form-group">
+                <h2>View All Appointments</h2>
+                <!-- Display all appointments from the database -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/firebase.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Your main application logic goes here
+
+// Sample function to add a teacher
+function addTeacher(name, department, subject) {
+    db.collection("teachers").add({
+        name: name,
+        department: department,
+        subject: subject
+    })
+    .then((docRef) => {
+        console.log("Teacher added with ID: ", docRef.id);
+    })
+    .catch((error) => {
+        console.error("Error adding teacher: ", error);
+    });
+}
+
+// Sample function to schedule an appointment
+function scheduleAppointment(studentId, teacherId, purpose, timing) {
+    db.collection("appointments").add({
+        studentId: studentId,
+        teacherId: teacherId,
+        purpose: purpose,
+        timing: timing,
+        status: "pending"
+    })
+    .then((docRef) => {
+        console.log("Appointment scheduled with ID: ", docRef.id);
+    })
+    .catch((error) => {
+        console.error("Error scheduling appointment: ", error);
+    });
+}
+
+// More functions for updating, deleting, approving, canceling, and viewing appointments, etc.
+    </script>
+</body>
+</html>
